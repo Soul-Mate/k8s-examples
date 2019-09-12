@@ -1,0 +1,31 @@
+# Deployment在Pod之上做了一些改变，其他的和pod相同
+# required 版本号
+apiVersion: apps/v1
+# required pod类型
+kind: Deployment
+# required 资源元数据
+metadata:
+  # required Deployment名称 RFC1035
+  name: example
+  # required Deployment所属命名空间，默认值default
+  namespace: exampleNamespace
+  # Deployment自定义标签列表
+  labels:
+  - foo:bar
+  # Deployment注解列表
+  annotations:
+  - foo:bar
+# required Deployment中容器的详细定义
+spec:
+  # pod副本数，默认为1
+  replicas: 1
+  # 根据标签选择pod, 与pod模板的标签匹配
+  selector:
+    # 选择的label名称
+    name: "example"
+  # 
+  template:
+    # pod的原数据信息
+    metadata:
+    # 容器的详细定义
+    spec:

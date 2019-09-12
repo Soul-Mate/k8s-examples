@@ -1,0 +1,103 @@
+# required 版本号
+apiVersion: apps/v1
+# required pod类型
+kind: Pod
+# required 资源元数据
+metadata:
+  # required pod名称 RFC1035
+  name: example
+  # required pod所属命名空间，默认值default
+  namespace: exampleNamespace
+  # pod自定义标签列表
+  labels:
+  - foo:bar
+  # pod注解列表
+  annotations:
+  - foo:bar
+# required pod中容器的详细定义
+spec:
+  # required pod中定义的容器列表
+  containers:
+    # required 容器名称 RFC1035
+  - name: exmaple-container
+    # required 容器镜像名
+    image: example:leatest
+    # 镜像拉取策略: 
+    #   Always: 每次都尝试拉取镜像 (默认值)
+    #   IfNotPresent: 本地如果有用本地，如果没有拉取
+    #   Never: 仅使用本地镜像
+    imagePullPolicy: Never
+    # 容器启动命令列表，如果不指定。默认使用容器打包时的cmd
+    command:
+    - "ls -l"
+    # 容器启动命令参数列表
+    args:
+    # 容器的工作目录
+    workingDir: "/"
+    # 挂在到容器内部的存储卷配置列表
+    voulmeMounts:
+      # 引用Pod定义的PV的名称，也就是volume部分定义的名称
+    - name: ""
+      # 存储卷在容器内Mount的绝对路径，512个字符限制
+      mountPath: ""
+      # 设置为只读，默认读写
+      readOnly: false
+    # 容器暴露的端口列表
+    ports:
+      # 端口的名称
+    - name: ""
+      # 容器需要监听的端口号
+      containerPort: 80
+      # 容器所在主机监听的端口号，默认与containerPort相同。
+      # 如果设置了hostPort, 同一台宿主机只能启动一个这个容器
+      hostPort: 80
+      # 端口协议, 支持udp和tcp，默认tcp
+      protocol: "tcp"
+    # 容器运行前需设置的环境变量列表
+    env:
+      # 环境变量名称
+    - name: "FOO"
+      value: "bar"
+    # 资源限制和资源请求的设置
+    resources:
+      # 资源限制（限制最高值）
+      limits:
+        # cpu限制，单位core数，将用于docker run --cpu-shares参数
+        cpu: "2"
+        # 内存限制，单位MIB，GIB等，将用于docker run --memory参数
+        memory: "1GIB"
+      # 资源请求限制（初始时分配值）
+      requests:
+        # cpu请求，单位core数，容器启动的初始化可用数量
+        cpu: "2"
+        # 内存请求，单位MIB, GIB等，容器启动的厨师可用数量
+        memory: "521MIB"
+  # PV列表
+  volumes:
+    # PV名称 RFC1035
+    #   emptyDir
+    #   hostPath
+    #   gcePersistentDisk
+    #   awsElasticBlockStore
+    #   gitRepo
+    #   secret
+    #   nfs
+    #   iscsi
+    #   glusterfs
+    #   persistentVolumeClaim
+    #   rbd
+    #   flexVolume
+    #   cinder
+    #   cephfs
+    #   flocker
+    #   downwardAPI
+    #   fc
+    #   azureFile
+    #   configMap
+    #   vsphereVolume
+    # 这里不全举例，每个volumes配置根据其类型都其自身的配置
+  - name: "emptyDir"
+    # hostPath PV 挂在Pod所在宿主机的目录
+    hostPath:
+      # 宿主机目录 
+      path: "/user/share/example"
