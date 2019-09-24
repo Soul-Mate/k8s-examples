@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-helloworld
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: webapp-helloworld
+  template:
+    metadata:
+      labels:
+        name: "webapp-helloworld"
+    spec:
+      containers:
+      - name: "webapp-helloworld"
+        image: "soulmate/webapp-helloworld:latest"
+        imagePullPolicy: "Never"
+        ports:
+        - name: "host-port"
+          containerPort: 7777
+          protocol: "TCP"

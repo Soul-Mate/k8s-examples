@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-arith-deployment
+  labels:
+    name: "webapp-arith"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: "webapp-arith"
+  template:
+    metadata:
+      labels:
+        name: "webapp-arith"
+    spec:
+      containers:
+      - name: "webapp-arith-container"
+        image: "soulmate/webapp-arith:latest"
+        imagePullPolicy: "Never"
+        ports:
+        - name: "rpc-port"
+          containerPort: 30001
+          protocol: "TCP"

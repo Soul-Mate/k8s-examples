@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp
+  labels:
+    app: webapp
+
+spec:
+  ports:
+  - port: 8888
+    targetPort: 8888
+  clusterIP: None
+  selector:
+    name: webapp
+  
