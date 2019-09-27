@@ -11,7 +11,7 @@ func main() {
 		w.Header().Set("Content-Type", "application/json")
 		data := map[string]interface{}{
 			"code": 200,
-			"data": "external-service",
+			"data": "api-service",
 		}
 
 		bs, _ := json.Marshal(data)

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-external-deployment
+  labels:
+    name: webapp-external
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: "webapp-external"
+  template:
+    metadata:
+      labels:
+        name: "webapp-external"
+    spec:
+      containers:
+      - name: "webapp-external-container"
+        image: "soulmate/webapp-external:latest"
+        imagePullPolicy: "Never"
+        ports:
+        - name: "host-port"
+          containerPort: 80
+          protocol: "TCP"

@@ -1,23 +1,21 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: ReplicationController
 metadata:
-  name: helloworld-deployment
-  namespace: webapp
+  name: helloworld-rc
   labels:
     name: helloworld
 spec:
   replicas: 1
   selector:
-    matchLabels:
-      name: helloworld
+    name: helloworld
   template:
     metadata:
       labels:
-        name: "helloworld"
+        name: helloworld
     spec:
       containers:
-      - name: "helloworld"
-        image: "soulmate/webapp-helloworld:latest"
+      - name: helloworld
+        image: soulmate/webapp-helloworld:latest
         imagePullPolicy: "Never"
         ports:
         - name: "http"

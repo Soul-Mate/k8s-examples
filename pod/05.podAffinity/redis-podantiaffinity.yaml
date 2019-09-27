@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-cache
+spec:
+  selector:
+    matchLabels:
+      name: redis-store
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        name: redis-store
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: name
+                operator: In
+                values:
+                - redis-store
+            topologyKey: kubernetes.io/hostname
+      containers:
+      - name: "redis"
+        image: "redis"

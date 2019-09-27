@@ -1,9 +1,9 @@
-apiVersion: v1
 kind: Service
+apiVersion: v1
 metadata:
-  name: external-service
+  name: markhub-external
 spec:
   type: ExternalName
-  externalName: 10.100.22.238
+  externalName: www.markhub.cn
   ports:
-  - port: 31000
+  - port: 80

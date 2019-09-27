@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloworld-nodeselector
+  labels:
+    name: helloworld-nodeselector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: helloworld
+  template:
+    metadata:
+      labels:
+        name: helloworld
+    spec:
+      containers:
+      - name: helloworld
+        image: soulmate/webapp-helloworld:latest
+        imagePullPolicy: Never
+        ports:
+        - name: "http"
+          containerPort: 7777
+          protocol: "TCP"
+        env:
+        - name: MY_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: MY_POD_NAMESPACE 
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: MY_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+      nodeSelector:
+        name: k8s-node-1
+      

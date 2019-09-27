@@ -1,0 +1,10 @@
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: api-service
+subsets:
+  - addresses:
+    - ip: 10.100.22.238
+      nodeName: 10.100.22.238
+    ports:
+    - port: 31000
